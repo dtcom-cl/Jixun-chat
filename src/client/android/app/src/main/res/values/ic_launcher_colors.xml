@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 图标已替换为空白透明占位图（背景色也设为全透明），由开发者自行替换 -->
+    <color name="ic_launcher_default_bg">#00000000</color>
+    <color name="ic_launcher_alt_bg">#00000000</color>
+</resources>

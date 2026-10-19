@@ -1,0 +1,15 @@
+﻿# 服务端依赖
+#
+# 说明：基础运行只需要 FastAPI + WebSockets + SQLite + asyncio。
+# tiktoken / httpx / lancedb / sqlalchemy 属于后续功能才用到的依赖，
+# 为“不提前实现后续阶段”，这里暂不引入；对应阶段开工时再追加。
+# 数据库使用 Python 标准库 sqlite3，因此不需要 sqlalchemy。
+
+fastapi>=0.110
+uvicorn[standard]>=0.27
+websockets>=12.0
+pydantic>=2.6
+
+# 第 36 轮（2026-10-04）：角色卡用 YAML 存（照搬 LingChat 的 settings.yml 格式），
+# 所以需要 PyYAML。venv 里本来就有（6.0.3），补进清单免得换机器漏装。
+PyYAML>=6.0

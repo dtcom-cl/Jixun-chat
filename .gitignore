@@ -1,0 +1,55 @@
+# ================================================================
+#  只有框架代码入库。数据、产物、私人文档、运维脚本全部排除。
+# ================================================================
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# ---- 运行数据（明文密码 / API Key / 聊天记录，绝对不入库）----
+data/
+logs/
+
+# ---- Flutter / Dart ----
+src/client/build/
+src/client/.dart_tool/
+src/client/.flutter-plugins
+src/client/.flutter-plugins-dependencies
+src/client/android/.gradle/
+src/client/android/.kotlin/
+src/client/android/local.properties
+src/client/android/key.properties
+*.iml
+.idea/
+.vscode/
+
+# ---- 构建产物 / 第三方工具 ----
+dist/
+tools/
+cloud_url.txt
+cloud_qr.png
+*.config.json
+
+# ---- 开发文档（含私人开发日记，不入库）----
+/docs/
+
+# ---- 只保留跑起来必需的脚本，其余运维/隧道脚本不入库 ----
+/scripts/*
+!/scripts/start_server.ps1
+!/scripts/net_addresses.ps1
+!/scripts/ensure_utf8_bom.ps1
+!/scripts/build_apk.ps1
+
+# ---- 与本机隧道相关的启动/修复脚本不入库 ----
+/start_named.bat
+/start_ngrok.bat
+/start_cloud.bat
+/start_relay.bat
+/start_wan.bat
+/fix_firewall.bat
+/fix_pagefile.bat
+/fix_wan.bat
+/wan_test.bat

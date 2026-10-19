@@ -1,0 +1,94 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 联网权限：必须放在 main 清单里。release 包不会合并 debug 清单，
+         缺这一行会导致 WebSocket 永远连不上（表现为一直“未连接”）。 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- Android 9+ 默认禁止明文流量，ws:// 属于明文，必须显式放开，
+         否则连局域网 ws://192.168.x.x:8000/ws 会被系统直接拦掉。 -->
+    <application
+        android:label="极迅"
+        android:name="${applicationName}"
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:taskAffinity=""
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize">
+            <!-- Specifies an Android theme to apply to this Activity as soon as
+                 the Android process has started. This theme is visible to the user
+                 while the Flutter UI initializes. After that, this theme continues
+                 to determine the Window background behind the Flutter UI. -->
+            <meta-data
+              android:name="io.flutter.embedding.android.NormalTheme"
+              android:resource="@style/NormalTheme"
+              />
+        </activity>
+
+        <!-- ============================================================
+             桌面图标 / 桌面名称自定义（用户 2026-09-25 要求；第十八轮收敛为两套）。
+
+             用户原话（2026-10-01）：
+               「现在图标只能用这两种，28KB的图标切换后就叫微信，80KB的图标切换后就叫QQ，
+                 默认是QQ，只有这两种能切换，其他的全部删掉，
+                 而且目前的图标还有点小 我想变成自适应」
+
+             所以只保留两套 activity-alias：极迅（默认启用）/ 计算机（默认禁用）。
+             原来那 6 套（极迅 / 朋友 / 聊天 / 备忘录 / 记事本 / 日常）已删除。
+
+             图标已替换为空白透明占位图，由开发者自行替换，
+             而且是**自适应图标**（`mipmap-anydpi-v26/*.xml`）：
+             老式普通图标会被系统缩一圈、外面垫一圈白，看起来就是「图标有点小」。
+
+             名字改为 极迅 / 计算机。PRD 5.3 的不做清单原本要求
+             避开真实商标，这里按「用户当面要求优先」处理（记在验收文档【待确认】里）。
+             ============================================================ -->
+
+        <activity-alias
+            android:name=".Alias1"
+            android:targetActivity=".MainActivity"
+            android:enabled="true"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_icon_1"
+            android:label="极迅">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".Alias2"
+            android:targetActivity=".MainActivity"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_icon_2"
+            android:label="计算机">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity-alias>
+
+        <!-- Don't delete the meta-data below.
+             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+    </application>
+    <!-- Required to query activities that can process text, see:
+         https://developer.android.com/training/package-visibility and
+         https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
+
+         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.PROCESS_TEXT"/>
+            <data android:mimeType="text/plain"/>
+        </intent>
+    </queries>
+</manifest>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 2026-10-01 第十八轮：用户要求「默认的名称和图标用 QQ」，所以
+         application 的 label 也从「极迅」改成「QQ」——
+         这个名字会出现在「设置 → 应用」和任务卡片上；
+         手机桌面上的那个名字由 activity-alias 的 label 决定（Alias1=QQ / Alias2=微信）。
+
+         底部那条的系统栏样式（2026-10-01 第十八轮 b）：
+         用户反馈「软件底部的黑色还是没有兼容」，原因是原来把导航栏设成透明、
+         指望 App 背景透上来，而部分 ROM（深色模式下尤其）不理透明请求、
+         直接用自己的黑。这里做三层保险：
+           1. navigationBarColor 给成 App 的浅灰（不透明）；
+           2. windowLightNavigationBar=true，让导航栏按钮/手势条用深色图标
+              （API 27+ 才认这个属性，低版本会忽略，不影响）；
+           3. enforceNavigationBarContrast=false，禁止系统自己再垫一层半透明底
+              （API 29+ 才认）。
+         运行期 Flutter 侧还会再设一次同样的样式（见 main.dart 的 kAppSystemUiStyle）。 -->
+    <style name="LaunchTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        <item name="android:windowBackground">@drawable/launch_background</item>
+        <item name="android:navigationBarColor">#FFF7F7F7</item>
+    </style>
+    <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        <item name="android:windowBackground">?android:colorBackground</item>
+        <item name="android:navigationBarColor">#FFF7F7F7</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:enforceNavigationBarContrast">false</item>
+    </style>
+</resources>

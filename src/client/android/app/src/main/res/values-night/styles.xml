@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 系统深色模式下的主题（2026-10-01 第十八轮）。
+
+         本 App 的界面**只有浅色一套**（聊天页 #F2F2F2、输入栏/标题栏 #F7F7F7、
+         列表白底），所以这里也必须是浅色主题 —— 原来继承 Theme.Black 且
+         windowBackground 用 ?android:colorBackground，深色模式下正好是黑的，
+         屏幕最底下那一条露出来就是一条黑边（用户报的「底部黑色不兼容」）。
+
+         导航栏相关的三条见 values/styles.xml 里的说明，这里保持一致。 -->
+    <style name="LaunchTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        <item name="android:windowBackground">@drawable/launch_background</item>
+        <item name="android:navigationBarColor">#FFF7F7F7</item>
+    </style>
+    <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        <item name="android:windowBackground">?android:colorBackground</item>
+        <item name="android:navigationBarColor">#FFF7F7F7</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:enforceNavigationBarContrast">false</item>
+    </style>
+</resources>

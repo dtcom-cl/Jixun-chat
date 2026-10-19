@@ -1,0 +1,50 @@
+name: jixun_client
+description: "极迅 —— AI 拟人化聊天 APP 客户端（阶段1：QQ风格UI骨架 + WebSocket基础）"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.13.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  # WebSocket客户端 协议实现
+  web_socket_channel: ^3.0.1
+  # 时间戳显示（14:30 灰色小字）
+  intl: ^0.20.2
+  # 表情面板：显示 SVG 表情图片，发送给 AI 的是 [笑哭] 文本。
+  # flutter_svg 是纯 Dart 包（无原生插件），不需要开发者模式。
+  flutter_svg: ^2.0.0
+  # 说明：“+”按钮选本地图片走自写的 MethodChannel（jixun/picker），
+  # 见 android/app/src/main/kotlin/.../MainActivity.kt 与 lib/services/image_picker_service.dart。
+  # 不用 image_picker 插件：原生插件在 Windows 上构建需要系统“开发者模式”
+  # （符号链接权限），本机开不了，会直接卡住构建。
+
+# 说明：设置模块的本地持久化由 lib/services/local_store.dart
+# 用 dart:io 直接写 JSON 文件实现，不引入 shared_preferences。
+# 原因：shared_preferences 是原生插件，在 Windows 上构建插件需要系统“开发者模式”
+# （符号链接权限），本机未开启且无法自动开启。去掉插件后，Windows / Android
+# 构建都不再需要开发者模式，依赖更少，符合“文档未写时选更少依赖方案”。
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+  # 全部为本地资源，禁止网络加载（用户 2026-09-25 要求）。
+  assets:
+    # 20 个表情 SVG：界面显示图片，发送给 AI 的是 [笑哭] 文本
+    - assets/emoji/
+    # 内置 AI 头像，设置页里选
+    - assets/avatar/
+    # 内置软件图标，设置页里选
+    - assets/app_icon/
